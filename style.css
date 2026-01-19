@@ -1,0 +1,28 @@
+.lorem {
+  color: skyblue;
+}
+
+.delete {
+  background: red;
+  color: black;
+  font-weight: 800;
+  font-family: Arial, Helvetica, sans-serif;
+  border-color: rgb(82, 25, 25);
+  box-shadow: 0 1 5px;
+  border-radius: 5px;
+}
+
+.delete:hover {
+  background: rgba(156, 7, 7, 0.979);
+  color: black;
+  font-weight: 800;
+  font-family: Arial, Helvetica, sans-serif;
+  border-color: rgb(82, 25, 25);
+  box-shadow: 0 1 5px;
+  border-radius: 5px;
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
+}
