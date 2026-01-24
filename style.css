@@ -31,3 +31,9 @@ body {
   font-size: 3rem;
   margin-bottom: 15px;
 }
+
+.hero-sec p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin-bottom: 25px;
+}
