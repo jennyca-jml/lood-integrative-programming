@@ -68,3 +68,8 @@ body {
   padding: 60px 20px;
   text-align: center;
 }
+
+.about-sec h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
