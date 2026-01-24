@@ -80,3 +80,13 @@ body {
   max-width: 700px;
   margin: 0 auto;
 }
+
+/* Footer */
+footer {
+  background: #e4e4e4;
+  color: #1f1f1f;
+  text-align: center;
+  border-top: #646464;
+  padding: 15px 10px;
+  font-size: 0.9rem;
+}
