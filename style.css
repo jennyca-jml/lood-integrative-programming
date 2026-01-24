@@ -26,3 +26,8 @@ body {
   text-align: center;
   padding: 20px;
 }
+
+.hero-sec h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
