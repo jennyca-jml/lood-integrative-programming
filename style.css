@@ -69,8 +69,8 @@ body {
   text-align: center;
 }
 
-.about-sec h2 {
-  font-size: 2rem;
+.about-sec h1 {
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
@@ -88,5 +88,5 @@ footer {
   text-align: center;
   border-top: #646464;
   padding: 20px 10px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
