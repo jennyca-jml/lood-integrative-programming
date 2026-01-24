@@ -37,3 +37,13 @@ body {
   max-width: 600px;
   margin-bottom: 25px;
 }
+
+.hero-sec .cta-btn {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: none;
+  background: #f4b400;
+  color: #000;
+  cursor: pointer;
+  border-radius: 25px;
+}
