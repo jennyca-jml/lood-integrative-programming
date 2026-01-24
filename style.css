@@ -51,3 +51,17 @@ body {
 .hero-sec .cta-btn:hover {
   background: #e2a200;
 }
+
+/* Content Section */
+.about-sec {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
