@@ -10,6 +10,48 @@ body {
   color: #222;
 }
 
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #f4b400;
+}
+
+/* Sign Up button style */
+.nav-links .signup {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #f4b400;
+  color: #000;
+  font-weight: bold;
+}
+
+.nav-links .signup:hover {
+  background: #e2a200;
+}
+
 /* Hero Section */
 .hero-sec {
   height: 100vh;
@@ -89,4 +131,74 @@ footer {
   border-top: #646464;
   padding: 15px 10px;
   font-size: 0.9rem;
+}
+
+/* Auth Pages (Login / Sign Up) */
+.auth-container {
+  height: 100vh;
+  width: 100%;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
+      center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.auth-box h1 {
+  margin-bottom: 10px;
+}
+
+.auth-box p {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-box input {
+  padding: 10px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth-btn {
+  padding: 10px;
+  background: #f4b400;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.auth-btn:hover {
+  background: #e2a200;
+}
+
+.auth-footer {
+  margin-top: 15px;
+  font-size: 0.85rem;
+}
+
+.auth-footer a {
+  color: #f4b400;
+  text-decoration: none;
+  font-weight: bold;
 }
