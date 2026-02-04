@@ -204,33 +204,38 @@ footer {
 }
 
 /* Profile Page */
-/* Profile Page Container */
 .profile-container {
   min-height: 100vh;
-  padding-top: 120px; /* below navbar */
+  padding: 120px 40px 40px;
   background:
     linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
       center/cover no-repeat;
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px; /* space between boxes */
 }
 
-/* Glassmorphism effect for profile card & info box */
 .profile-card,
 .profile-info-box {
-  background: rgba(255, 255, 255, 0.1); /* transparent */
-  backdrop-filter: blur(10px); /* frosted glass blur */
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 30px;
+  width: 420px;
+  height: 420px;
   text-align: center;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 30px;
+
   color: white;
-  width: 90%;
-  max-width: 350px; /* profile card */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .profile-info-box {
@@ -239,19 +244,20 @@ footer {
 }
 
 .profile-avatar {
-  <img src="https://via.placeholder.com/150/cccccc/ffffff?text=Avatar" alt="Profile Avatar" class="profile-avatar">
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 20px;
   object-fit: cover;
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  margin: 0 auto 20px;
+  background-color: rgba(255, 255, 255, 0.15);
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
 /* Profile Text */
-.profile-card h2 {
+.profile-card h1 {
   margin-bottom: 5px;
   font-size: 1.6rem;
 }
@@ -262,9 +268,9 @@ footer {
   color: #f0f0f0;
 }
 
-.profile-info-box h3 {
+.profile-info-box h1 {
   margin-bottom: 10px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 .profile-info-box p {
