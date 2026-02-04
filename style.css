@@ -184,6 +184,8 @@ footer {
   background: #f4b400;
   border: none;
   border-radius: 25px;
+  text-decoration: none;
+  color: #000;
   font-size: 1rem;
   cursor: pointer;
   font-weight: bold;
