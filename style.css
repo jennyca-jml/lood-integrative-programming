@@ -49,7 +49,8 @@ body {
 }
 
 .nav-links .signup:hover {
-  background: #e2a200;
+  background: #e2a200d8;
+  color: #000;
 }
 
 /* Hero Section */
@@ -189,7 +190,8 @@ footer {
 }
 
 .auth-btn:hover {
-  background: #e2a200;
+  background: #e2a200d8;
+  color: #000;
 }
 
 .auth-footer {
