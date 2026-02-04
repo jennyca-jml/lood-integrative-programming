@@ -220,8 +220,8 @@ footer {
 
 .profile-card,
 .profile-info-box {
-  width: 420px;
-  height: 420px;
+  width: 450px;
+  height: 450px;
   text-align: center;
 
   background: rgba(0, 0, 0, 0.45);
@@ -298,5 +298,85 @@ footer {
 
 .settings-btn:hover {
   background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Settings Page */
+.settings-container {
+  min-height: 100vh;
+  padding: 140px 40px 40px; /* top padding instead of centering */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
+      center/cover no-repeat;
+
+  display: flex;
+  justify-content: center; /* horizontal centering */
+  align-items: flex-start; /* align card near top */
+}
+
+.settings-card {
+  width: 100vh;
+
+  padding: 40px 30px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-icon {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+
+.settings-card h2 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.settings-card label {
+  display: block;
+  margin-top: 10px; /* space above label */
+  font-weight: bold;
+}
+
+.settings-card input,
+.settings-card select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px; /* space between label and input */
+  margin-bottom: 10px; /* space after input before small text or next label */
+  width: 100%;
+}
+
+.settings-card input:disabled {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f0f0f0;
+}
+
+.save-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 30px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.save-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
 }
