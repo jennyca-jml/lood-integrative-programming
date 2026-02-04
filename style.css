@@ -332,24 +332,13 @@ footer {
   flex-direction: column;
   gap: 20px;
 }
-.settings-header {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* center everything horizontally */
-  position: relative; /* for absolute positioning the back button */
-  margin-bottom: 25px;
-}
 
-/* Back button on the left, stays fixed using absolute positioning */
-.back-btn {
-  position: absolute;
-  left: 0;
+.nav-links .back-btn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+  gap: 5px; /* space between arrow and text */
+  padding: 6px 14px;
+  border-radius: 20px;
   background: #f4b400;
   color: #000;
   font-weight: bold;
@@ -359,23 +348,22 @@ footer {
     transform 0.2s;
 }
 
-.back-btn i {
-  font-size: 1rem;
-}
-
-.back-btn:hover {
-  background: #e2a200;
-  transform: translateY(-2px);
+.nav-links .back-btn:hover {
+  background: #e2a200d8;
+  color: #000;
 }
 
 /* Settings Title centered */
 .settings-card h2 {
   font-size: 1.8rem;
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  display: flex;
+  margin: 0 0 25px 0;
+  text-align: center; /* center the whole h2 */
+  display: inline-flex; /* allows icon + text to align */
   align-items: center;
-  gap: 10px;
+  justify-content: center; /* center icon + text */
+  gap: 10px; /* space between icon and text */
+  width: 100%;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .settings-card label {
