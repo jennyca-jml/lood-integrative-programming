@@ -210,7 +210,7 @@ footer {
   min-height: 100vh;
   padding: 120px 40px 40px;
   background:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
     url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
       center/cover no-repeat;
 
@@ -330,18 +330,50 @@ footer {
   flex-direction: column;
   gap: 20px;
 }
-
-.settings-icon {
-  margin-right: 10px;
-  font-size: 1.5rem;
-  vertical-align: middle;
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center everything horizontally */
+  position: relative; /* for absolute positioning the back button */
+  margin-bottom: 25px;
 }
 
+/* Back button on the left, stays fixed using absolute positioning */
+.back-btn {
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #f4b400;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition:
+    background 0.3s,
+    transform 0.2s;
+}
+
+.back-btn i {
+  font-size: 1rem;
+}
+
+.back-btn:hover {
+  background: #e2a200;
+  transform: translateY(-2px);
+}
+
+/* Settings Title centered */
 .settings-card h2 {
-  margin-bottom: 15px;
   font-size: 1.8rem;
-  text-align: center;
+  margin: 0;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .settings-card label {
