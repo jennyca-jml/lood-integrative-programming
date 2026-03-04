@@ -21,12 +21,21 @@
         <h1>Create Account</h1>
         <p>Join Guitaria and start your fingerstyle journey.</p>
 
-        <form>
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
-          <input type="password" placeholder="Password" required />
-          <input type="password" placeholder="Confirm Password" required />
-
+        <form id="signupForm">
+          <input type="text" id="fullName" placeholder="Full Name" required />
+          <input type="email" id="email" placeholder="Email Address" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            required
+          />
           <button type="submit" class="auth-btn">Sign Up</button>
         </form>
 
@@ -36,5 +45,7 @@
         </p>
       </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

@@ -20,11 +20,16 @@
         <h1>Welcome Back</h1>
         <p>Log in to continue your guitar journey.</p>
 
-        <form>
-          <input type="email" placeholder="Email Address" required />
-          <input type="password" placeholder="Password" required />
+        <form id="loginForm">
+          <input type="email" id="email" placeholder="Email Address" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
 
-          <a href="profile.html" class="auth-btn">Log In</a>
+          <button type="submit" class="auth-btn">Log In</button>
         </form>
 
         <p class="auth-footer">
@@ -33,5 +38,7 @@
         </p>
       </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

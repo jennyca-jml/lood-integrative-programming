@@ -42,5 +42,21 @@
         </p>
       </div>
     </div>
+
+    <script>
+      // Wait for DOM to load
+      document.addEventListener("DOMContentLoaded", function () {
+        const nameField = document.querySelector(".profile-card h1");
+        const emailField = document.querySelector(".profile-email");
+
+        // Get info from localStorage
+        const storedName = localStorage.getItem("profileName");
+        const storedEmail = localStorage.getItem("profileEmail");
+
+        // Update the profile page
+        if (storedName) nameField.textContent = storedName;
+        if (storedEmail) emailField.textContent = storedEmail;
+      });
+    </script>
   </body>
 </html>
