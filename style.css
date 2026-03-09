@@ -415,21 +415,6 @@ footer {
   padding-top: 60px; /* Account for navbar */
 }
 
-/* Sidebar */
-.admin-sidebar {
-  width: 280px;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  position: fixed;
-  left: 0;
-  top: 60px;
-  bottom: 0;
-  overflow-y: auto;
-  z-index: 100;
-}
-
 .sidebar-header {
   padding: 30px 20px;
   text-align: center;
