@@ -500,14 +500,6 @@ footer {
   color: #ccc;
 }
 
-.sidebar-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .sidebar-footer a {
   color: white;
   text-decoration: none;
@@ -838,7 +830,7 @@ footer {
 
 /* Sidebar */
 .admin-sidebar {
-  width: 280px;
+  width: 300px;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(10px);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
