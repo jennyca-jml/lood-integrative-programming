@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users - Guitaria</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="admin.html" class="admin-link">Admin</a></li>
+        <li><a href="login.html" class="signup">Logout</a></li>
+      </ul>
+    </nav>
+
+    <!-- Manage Users Section -->
+    <div class="manage-container">
+      <div class="manage-card">
+        <!-- Back to Admin Link -->
+        <div style="margin-bottom: 20px">
+          <a href="admin.html" class="back-to-dashboard">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+          </a>
+        </div>
+        <h1><i class="fas fa-users-cog"></i> Manage Users</h1>
+
+        <!-- Users Table -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- Table rows will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Add User Form -->
+        <div class="add-user-form">
+          <h2><i class="fas fa-user-plus"></i> Add New User</h2>
+          <form id="addUserForm">
+            <div class="form-group">
+              <label for="newName">Name:</label>
+              <input
+                type="text"
+                id="newName"
+                placeholder="Enter full name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="newEmail">Email:</label>
+              <input
+                type="email"
+                id="newEmail"
+                placeholder="Enter email address"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="newRole">Role:</label>
+              <select id="newRole" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+
+            <button type="submit" class="add-btn">
+              <i class="fas fa-plus"></i> Add User
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
