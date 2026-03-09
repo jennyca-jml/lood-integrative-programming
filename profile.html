@@ -57,6 +57,33 @@
         if (storedName) nameField.textContent = storedName;
         if (storedEmail) emailField.textContent = storedEmail;
       });
+      // Add logout functionality
+      document
+        .querySelector('.nav-links a[href="login.html"]')
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          // Clear any session data if needed
+          window.location.href = "login.html";
+        });
+    </script>
+    <script>
+      // Existing profile code...
+
+      // Check if user is admin and show admin link in navbar
+      document.addEventListener("DOMContentLoaded", function () {
+        const userRole = localStorage.getItem("userRole");
+        const navLinks = document.querySelector(".nav-links");
+
+        if (userRole === "admin") {
+          // Add admin link if not exists
+          if (!document.querySelector(".admin-link")) {
+            const adminLi = document.createElement("li");
+            adminLi.innerHTML =
+              '<a href="admin.html" class="admin-link">Admin</a>';
+            navLinks.insertBefore(adminLi, navLinks.children[1]); // Insert after Home
+          }
+        }
+      });
     </script>
   </body>
 </html>
