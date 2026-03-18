@@ -224,26 +224,41 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ========== ADMIN DASHBOARD FUNCTIONALITY ==========
-  // Check admin access
-  if (
-    window.location.pathname.includes("admin.html") ||
-    window.location.pathname.includes("manage-users.html")
-  ) {
+// ========== ADMIN DASHBOARD FUNCTIONALITY ==========
+// Check admin access - IMMEDIATE EXECUTION
+(function checkAdminAccess() {
+  // Check if current page is admin page
+  const currentPage = window.location.pathname;
+  const isAdminPage = currentPage.includes("admin.html") || 
+                      currentPage.includes("manage-users.html");
+  
+  if (isAdminPage) {
+    // Get user role
     const userRole = localStorage.getItem("userRole");
-
-    // Redirect non-admin users
-    if (userRole !== "admin") {
-      alert("Access denied. Admin only.");
+    const isLoggedIn = localStorage.getItem("profileName"); // Check if logged in
+    
+    // Debug info (remove in production)
+    console.log("Admin access check:", { userRole, isLoggedIn, currentPage });
+    
+    // Redirect conditions
+    if (!isLoggedIn) {
+      // Not logged in at all
+      alert("Please log in first.");
       window.location.href = "login.html";
+      return;
     }
+    
+    if (userRole !== "admin") {
+      // Logged in but not admin
+      alert("Access denied. Admin only.");
+      window.location.href = "profile.html"; // Send to profile instead of login
+      return;
+    }
+    
+    // If we get here, user is admin - allow access
+    console.log("Admin access granted");
   }
-
-  // ========== MANAGE USERS PAGE FUNCTIONALITY ==========
-  if (window.location.pathname.includes("manage-users.html")) {
-    initializeUserManagement();
-  }
-});
+})();
 
 // ========== HELPER FUNCTIONS ==========
 function showError(input, message) {

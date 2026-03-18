@@ -4,6 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - Guitaria</title>
+    <!-- EARLY ADMIN CHECK - Add this right after title -->
+    <script>
+      (function () {
+        // Immediate admin check before anything else
+        const userRole = localStorage.getItem("userRole");
+        const isLoggedIn = localStorage.getItem("profileName");
+        const currentPage = window.location.pathname;
+
+        console.log("Early admin check:", { userRole, isLoggedIn });
+
+        if (!isLoggedIn) {
+          alert("Please log in first.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        if (userRole !== "admin") {
+          alert("Access denied. Admin only.");
+          window.location.href = "profile.html";
+          return;
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
