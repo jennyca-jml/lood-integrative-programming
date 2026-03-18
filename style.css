@@ -39,6 +39,79 @@ body {
   color: #f4b400;
 }
 
+/* Saved Items Link in Navbar */
+.nav-links .saved-link {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-links .saved-link:hover {
+  background: #45a049;
+  color: white;
+}
+
+/* Save Message (moved from internal style) */
+.save-message {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: #4caf50;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  animation:
+    slideIn 0.3s ease,
+    fadeOut 0.3s ease 2.7s;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.saved-badge {
+  background: #4caf50;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 10px;
+}
+
+/* API Link in Navbar */
+.nav-links .api-link {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #f4b400;
+  color: #000;
+  font-weight: bold;
+}
+
+.nav-links .api-link:hover {
+  background: #e2a200;
+  color: #000;
+}
+
 /* Sign Up button style */
 .nav-links .signup {
   padding: 6px 14px;
