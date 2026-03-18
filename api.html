@@ -313,19 +313,112 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* Add to existing styles in api.html */
+      .save-btn {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background: rgba(76, 175, 80, 0.3);
+        color: white;
+        border: 1px solid rgba(76, 175, 80, 0.5);
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.3s;
+        width: 100%;
+      }
+
+      .save-btn:hover:not(.saved) {
+        background: rgba(76, 175, 80, 0.6);
+        border-color: #4caf50;
+        transform: translateY(-2px);
+      }
+
+      .save-btn.saved {
+        background: #4caf50;
+        color: white;
+        border-color: #4caf50;
+        cursor: default;
+      }
+
+      .save-btn.saved:hover {
+        transform: none;
+      }
+
+      .save-message {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #4caf50;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        animation:
+          slideIn 0.3s ease,
+          fadeOut 0.3s ease 2.7s;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      .saved-badge {
+        background: #4caf50;
+        color: white;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 12px;
+        margin-left: 10px;
+      }
+
+      /* Add to style.css or internal style */
+      .nav-links .saved-link {
+        padding: 6px 14px;
+        border-radius: 20px;
+        background: #4caf50;
+        color: white;
+        font-weight: bold;
+      }
+
+      .nav-links .saved-link:hover {
+        background: #45a049;
+        color: white;
+      }
     </style>
   </head>
 
   <body>
+    <!-- Navbar -->
     <!-- Navbar -->
     <nav class="navbar">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
         <li><a href="admin.html" class="admin-link">Admin</a></li>
-        <li>
-          <a href="api.html" style="color: #f4b400; font-weight: bold">API</a>
-        </li>
+        <li><a href="api.html" class="api-link">API</a></li>
+        <li><a href="saved-items.html" class="saved-link">Saved Items</a></li>
         <li><a href="login.html" class="signup">Logout</a></li>
       </ul>
     </nav>
@@ -358,7 +451,7 @@
           </div>
 
           <div class="examples-section">
-            <p style="color: #ccc; margin-bottom: 8px">Try these examples:</p>
+            <p style="color: #ccc; margin-bottom: 8px">Try search for:</p>
             <div class="example-countries">
               <span
                 class="example-country"
@@ -540,10 +633,21 @@
         countriesGrid.innerHTML = "";
 
         // Update results count
-        resultsCount.textContent = `${countries.length} countr${countries.length === 1 ? "y" : "ies"} found`;
+        resultsCount.textContent = `${countries.length} countr${
+          countries.length === 1 ? "y" : "ies"
+        } found`;
 
         // Sort countries alphabetically by name
         countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+        // Get saved countries from localStorage
+        let savedCountries = [];
+        try {
+          savedCountries =
+            JSON.parse(localStorage.getItem("savedCountries")) || [];
+        } catch (e) {
+          savedCountries = [];
+        }
 
         // Create card for each country
         countries.forEach((country) => {
@@ -552,11 +656,13 @@
 
           // Get country data with fallbacks
           const name = country.name.common || "Unknown";
+          const countryCode = country.cca2 || "";
           const capital = country.capital ? country.capital[0] : "No capital";
           const population = country.population
             ? country.population.toLocaleString()
             : "Unknown";
           const region = country.region || "Unknown";
+          const subregion = country.subregion || "Not specified";
           const flag = country.flag || "🏳️";
           const currency = country.currencies
             ? Object.values(country.currencies)[0].name
@@ -564,36 +670,139 @@
           const languages = country.languages
             ? Object.values(country.languages).join(", ")
             : "No language data";
+          const flagUrl = country.flags?.png || "";
+
+          // Check if country is already saved
+          const isSaved = savedCountries.some(
+            (saved) => saved.name === name || saved.cca2 === countryCode,
+          );
 
           card.innerHTML = `
-            <div class="country-name">
-              <span class="country-flag">${flag}</span>
-              ${name}
-            </div>
-            <div class="country-info">
-              <i class="fas fa-map-marker-alt"></i>
-              Capital: ${capital}
-            </div>
-            <div class="country-info">
-              <i class="fas fa-users"></i>
-              Population: ${population}
-            </div>
-            <div class="country-info">
-              <i class="fas fa-globe"></i>
-              Region: ${region}
-            </div>
-            <div class="country-info">
-              <i class="fas fa-money-bill-wave"></i>
-              Currency: ${currency}
-            </div>
-            <div class="country-info">
-              <i class="fas fa-language"></i>
-              Languages: ${languages}
-            </div>
-          `;
+      <div class="country-name">
+        <span class="country-flag">${flag}</span>
+        ${name}
+        ${isSaved ? '<span class="saved-badge">Saved</span>' : ""}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-map-marker-alt"></i>
+        Capital: ${capital}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-users"></i>
+        Population: ${population}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-globe"></i>
+        Region: ${region}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-globe-asia"></i>
+        Subregion: ${subregion}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-money-bill-wave"></i>
+        Currency: ${currency}
+      </div>
+      <div class="country-info">
+        <i class="fas fa-language"></i>
+        Languages: ${languages}
+      </div>
+      <button class="save-btn ${isSaved ? "saved" : ""}" 
+              data-country='${JSON.stringify({
+                name,
+                capital,
+                population,
+                region,
+                subregion,
+                currency,
+                languages,
+                flag,
+                flagUrl,
+                cca2: countryCode,
+              }).replace(/'/g, "&apos;")}'>
+        <i class="fas ${isSaved ? "fa-check" : "fa-bookmark"}"></i>
+        ${isSaved ? "Saved" : "Save Country"}
+      </button>
+    `;
 
           countriesGrid.appendChild(card);
         });
+
+        // Add event listeners to save buttons
+        document.querySelectorAll(".save-btn:not(.saved)").forEach((btn) => {
+          btn.addEventListener("click", handleSaveCountry);
+        });
+      }
+
+      // Handle saving country to localStorage
+      function handleSaveCountry(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const btn = e.currentTarget;
+        const countryData = JSON.parse(btn.dataset.country);
+
+        // Get existing saved countries
+        let savedCountries = [];
+        try {
+          savedCountries =
+            JSON.parse(localStorage.getItem("savedCountries")) || [];
+        } catch (err) {
+          savedCountries = [];
+        }
+
+        // Check for duplicates (by name or country code)
+        const isDuplicate = savedCountries.some(
+          (c) => c.name === countryData.name || c.cca2 === countryData.cca2,
+        );
+
+        if (isDuplicate) {
+          showSaveMessage("Country already saved!", "warning");
+          return;
+        }
+
+        // Add timestamp
+        countryData.savedAt = new Date().toISOString();
+
+        // Save to localStorage
+        savedCountries.push(countryData);
+        localStorage.setItem("savedCountries", JSON.stringify(savedCountries));
+
+        // Update button appearance
+        btn.classList.add("saved");
+        btn.innerHTML = '<i class="fas fa-check"></i> Saved';
+        btn.removeEventListener("click", handleSaveCountry);
+
+        // Add saved badge to country name
+        const countryNameDiv = btn
+          .closest(".country-card")
+          .querySelector(".country-name");
+        if (!countryNameDiv.querySelector(".saved-badge")) {
+          const badge = document.createElement("span");
+          badge.className = "saved-badge";
+          badge.textContent = "Saved";
+          countryNameDiv.appendChild(badge);
+        }
+
+        // Show success message
+        showSaveMessage("Country saved successfully!");
+      }
+
+      // Show save message
+      function showSaveMessage(message, type = "success") {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "save-message";
+        msgDiv.style.background = type === "success" ? "#4caf50" : "#ff9800";
+        msgDiv.innerHTML = `
+    <i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i>
+    ${message}
+  `;
+
+        document.body.appendChild(msgDiv);
+
+        setTimeout(() => {
+          msgDiv.remove();
+        }, 3000);
       }
 
       // Function to search from example clicks
