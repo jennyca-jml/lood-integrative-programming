@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>University Search - Guitaria API Demo</title>
+    <title>Country Information - Guitaria API Demo</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
@@ -200,14 +200,14 @@
         border: 1px solid rgba(244, 180, 0, 0.3);
       }
 
-      .universities-grid {
+      .countries-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 20px;
         margin-top: 20px;
       }
 
-      .university-card {
+      .country-card {
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         padding: 20px;
@@ -218,49 +218,38 @@
         gap: 10px;
       }
 
-      .university-card:hover {
+      .country-card:hover {
         transform: translateY(-5px);
         border-color: #f4b400;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
       }
 
-      .university-name {
+      .country-name {
         font-size: 1.2rem;
         font-weight: bold;
         color: #f4b400;
         margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
-      .university-domain {
+      .country-flag {
+        font-size: 2rem;
+      }
+
+      .country-info {
         display: flex;
         align-items: center;
         gap: 8px;
         color: #ccc;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+        margin: 5px 0;
       }
 
-      .university-domain i {
-        color: #4caf50;
-        width: 16px;
-      }
-
-      .university-web {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #ccc;
-        font-size: 0.9rem;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .university-web:hover {
+      .country-info i {
+        width: 20px;
         color: #f4b400;
-      }
-
-      .university-web i {
-        color: #2196f3;
-        width: 16px;
       }
 
       .no-results {
@@ -320,7 +309,7 @@
           justify-content: center;
         }
 
-        .universities-grid {
+        .countries-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -346,13 +335,10 @@
       <div class="api-card">
         <div class="api-header">
           <h1>
-            <i class="fas fa-university"></i>
-            University Search
+            <i class="fas fa-globe-americas"></i>
+            Country Information
           </h1>
-          <p>
-            Search for universities anywhere in the world using the Hipolabs
-            Universities API
-          </p>
+          <p>Search for country information using the REST Countries API</p>
         </div>
 
         <!-- Search Section -->
@@ -362,12 +348,12 @@
               type="text"
               id="countryInput"
               class="search-input"
-              placeholder="Enter a country name (e.g., Philippines, Japan, United States)"
+              placeholder="Enter a country name (e.g., Philippines, Japan, Canada)"
               value="Philippines"
             />
             <button id="searchBtn" class="search-btn">
               <i class="fas fa-search"></i>
-              Search Universities
+              Search Country
             </button>
           </div>
 
@@ -382,21 +368,17 @@
               <span class="example-country" onclick="searchExample('Japan')"
                 >🇯🇵 Japan</span
               >
-              <span
-                class="example-country"
-                onclick="searchExample('United States')"
-                >🇺🇸 United States</span
+              <span class="example-country" onclick="searchExample('Canada')"
+                >🇨🇦 Canada</span
               >
-              <span
-                class="example-country"
-                onclick="searchExample('United Kingdom')"
-                >🇬🇧 United Kingdom</span
+              <span class="example-country" onclick="searchExample('Brazil')"
+                >🇧🇷 Brazil</span
+              >
+              <span class="example-country" onclick="searchExample('France')"
+                >🇫🇷 France</span
               >
               <span class="example-country" onclick="searchExample('Australia')"
                 >🇦🇺 Australia</span
-              >
-              <span class="example-country" onclick="searchExample('Germany')"
-                >🇩🇪 Germany</span
               >
             </div>
           </div>
@@ -405,19 +387,17 @@
         <!-- Loading Spinner -->
         <div id="loadingSpinner" class="loading-spinner">
           <i class="fas fa-spinner"></i>
-          <p style="margin-top: 10px">Searching for universities...</p>
+          <p style="margin-top: 10px">Searching for country information...</p>
         </div>
 
         <!-- Results Section -->
         <div id="resultsSection" class="results-section">
           <div class="results-header">
             <h2>
-              <i class="fas fa-graduation-cap"></i>
-              Search Results
+              <i class="fas fa-info-circle"></i>
+              Country Details
             </h2>
-            <div id="resultsCount" class="results-count">
-              0 universities found
-            </div>
+            <div id="resultsCount" class="results-count">0 countries found</div>
           </div>
 
           <!-- Error Message Container -->
@@ -430,52 +410,52 @@
             <p id="errorText"></p>
           </div>
 
-          <!-- Universities Grid -->
-          <div id="universitiesGrid" class="universities-grid">
+          <!-- Countries Grid -->
+          <div id="countriesGrid" class="countries-grid">
             <!-- Results will be inserted here by JavaScript -->
           </div>
 
           <!-- No Results Message -->
           <div id="noResults" class="no-results" style="display: none">
             <i class="fas fa-search"></i>
-            <h3>No universities found</h3>
+            <h3>No countries found</h3>
             <p>Try searching for a different country or check the spelling.</p>
           </div>
 
           <!-- Info Note -->
           <div class="info-note">
             <i class="fas fa-info-circle"></i>
-            Data provided by <strong>Hipolabs Universities API</strong> - A free
-            public API for university information worldwide.
+            Data provided by <strong>REST Countries API</strong> - A free public
+            API for country information worldwide.
           </div>
         </div>
       </div>
     </div>
 
     <script>
-      // API Endpoint
-      const API_URL = "http://universities.hipolabs.com/search?country=";
+      // API Endpoint - Using REST Countries API (works with HTTPS)
+      const API_URL = "https://restcountries.com/v3.1/name/";
 
       // DOM Elements
       const countryInput = document.getElementById("countryInput");
       const searchBtn = document.getElementById("searchBtn");
       const loadingSpinner = document.getElementById("loadingSpinner");
-      const universitiesGrid = document.getElementById("universitiesGrid");
+      const countriesGrid = document.getElementById("countriesGrid");
       const noResults = document.getElementById("noResults");
       const errorMessage = document.getElementById("errorMessage");
       const errorText = document.getElementById("errorText");
       const resultsCount = document.getElementById("resultsCount");
 
-      // Search for universities when page loads (show Philippines as default)
+      // Search for country when page loads (show Philippines as default)
       document.addEventListener("DOMContentLoaded", function () {
-        searchUniversities("Philippines");
+        searchCountry("Philippines");
       });
 
       // Search button click event
       searchBtn.addEventListener("click", function () {
         const country = countryInput.value.trim();
         if (country) {
-          searchUniversities(country);
+          searchCountry(country);
         } else {
           showError("Please enter a country name");
         }
@@ -486,35 +466,39 @@
         if (e.key === "Enter") {
           const country = countryInput.value.trim();
           if (country) {
-            searchUniversities(country);
+            searchCountry(country);
           } else {
             showError("Please enter a country name");
           }
         }
       });
 
-      // Function to search universities
-      async function searchUniversities(country) {
+      // Function to search country
+      async function searchCountry(country) {
         // Hide previous results and errors
         hideAllResults();
 
         // Show loading spinner
         loadingSpinner.style.display = "block";
-        universitiesGrid.innerHTML = "";
+        countriesGrid.innerHTML = "";
 
         try {
           // Encode the country name for URL
           const encodedCountry = encodeURIComponent(country);
-          const url = API_URL + encodedCountry;
-
-          console.log("Fetching from:", url); // For debugging
 
           // Make API request
+          const url = `${API_URL}${encodedCountry}`;
+          console.log("Fetching from:", url);
+
           const response = await fetch(url);
 
           // Check if response is ok
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (response.status === 404) {
+              throw new Error("Country not found");
+            } else {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
           }
 
           // Parse JSON response
@@ -525,84 +509,97 @@
 
           // Process and display results
           if (data && data.length > 0) {
-            displayUniversities(data, country);
+            displayCountries(data);
           } else {
             // No results found
             noResults.style.display = "block";
-            resultsCount.textContent = "0 universities found";
+            resultsCount.textContent = "0 countries found";
           }
         } catch (error) {
           // Handle errors
-          console.error("Error fetching universities:", error);
+          console.error("Error fetching country:", error);
           loadingSpinner.style.display = "none";
-          showError(
-            "Failed to fetch universities. Please try again later. " +
-              error.message,
-          );
+
+          // Show error message
+          errorText.textContent =
+            error.message === "Country not found"
+              ? `No country found with name "${country}"`
+              : "Failed to fetch country information. Please try again later.";
+          errorMessage.style.display = "block";
+          resultsCount.textContent = "0 countries found";
+
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 5000);
         }
       }
 
-      // Function to display universities
-      function displayUniversities(universities, country) {
+      // Function to display countries
+      function displayCountries(countries) {
         // Clear the grid
-        universitiesGrid.innerHTML = "";
+        countriesGrid.innerHTML = "";
 
         // Update results count
-        resultsCount.textContent = `${universities.length} universit${universities.length === 1 ? "y" : "ies"} found in ${country}`;
+        resultsCount.textContent = `${countries.length} countr${countries.length === 1 ? "y" : "ies"} found`;
 
-        // Sort universities alphabetically by name
-        universities.sort((a, b) => a.name.localeCompare(b.name));
+        // Sort countries alphabetically by name
+        countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
-        // Create card for each university
-        universities.forEach((university) => {
+        // Create card for each country
+        countries.forEach((country) => {
           const card = document.createElement("div");
-          card.className = "university-card";
+          card.className = "country-card";
 
-          // Get website URL if available
-          const websiteUrl =
-            university.web_pages && university.web_pages.length > 0
-              ? university.web_pages[0]
-              : "#";
-
-          // Get domain if available
-          const domain =
-            university.domains && university.domains.length > 0
-              ? university.domains[0]
-              : "No domain listed";
+          // Get country data with fallbacks
+          const name = country.name.common || "Unknown";
+          const capital = country.capital ? country.capital[0] : "No capital";
+          const population = country.population
+            ? country.population.toLocaleString()
+            : "Unknown";
+          const region = country.region || "Unknown";
+          const flag = country.flag || "🏳️";
+          const currency = country.currencies
+            ? Object.values(country.currencies)[0].name
+            : "No currency data";
+          const languages = country.languages
+            ? Object.values(country.languages).join(", ")
+            : "No language data";
 
           card.innerHTML = `
-            <div class="university-name">
-              <i class="fas fa-university" style="margin-right: 8px; color: #f4b400;"></i>
-              ${university.name}
+            <div class="country-name">
+              <span class="country-flag">${flag}</span>
+              ${name}
             </div>
-            <div class="university-domain">
-              <i class="fas fa-globe"></i>
-              ${domain}
-            </div>
-            ${
-              websiteUrl !== "#"
-                ? `
-              <a href="${websiteUrl}" target="_blank" class="university-web">
-                <i class="fas fa-external-link-alt"></i>
-                Visit Website
-              </a>
-            `
-                : ""
-            }
-            <div style="margin-top: 5px; font-size: 0.8rem; color: #999;">
+            <div class="country-info">
               <i class="fas fa-map-marker-alt"></i>
-              ${university.country || country} ${university["state-province"] ? `(${university["state-province"]})` : ""}
+              Capital: ${capital}
+            </div>
+            <div class="country-info">
+              <i class="fas fa-users"></i>
+              Population: ${population}
+            </div>
+            <div class="country-info">
+              <i class="fas fa-globe"></i>
+              Region: ${region}
+            </div>
+            <div class="country-info">
+              <i class="fas fa-money-bill-wave"></i>
+              Currency: ${currency}
+            </div>
+            <div class="country-info">
+              <i class="fas fa-language"></i>
+              Languages: ${languages}
             </div>
           `;
 
-          universitiesGrid.appendChild(card);
+          countriesGrid.appendChild(card);
         });
       }
 
       // Function to search from example clicks
       window.searchExample = function (country) {
         countryInput.value = country;
-        searchUniversities(country);
+        searchCountry(country);
       };
 
       // Function to show error message
@@ -610,7 +607,7 @@
         errorText.textContent = message;
         errorMessage.style.display = "block";
         loadingSpinner.style.display = "none";
-        resultsCount.textContent = "0 universities found";
+        resultsCount.textContent = "0 countries found";
 
         // Hide error after 5 seconds
         setTimeout(() => {
@@ -622,18 +619,8 @@
       function hideAllResults() {
         noResults.style.display = "none";
         errorMessage.style.display = "none";
-        universitiesGrid.innerHTML = "";
+        countriesGrid.innerHTML = "";
       }
-
-      // Check if user is logged in (optional - redirect to login if not)
-      document.addEventListener("DOMContentLoaded", function () {
-        const profileName = localStorage.getItem("profileName");
-        if (!profileName) {
-          // Uncomment the next line if you want to require login
-          // window.location.href = 'login.html';
-        }
-      });
     </script>
-    <script src="script.js"></script>
   </body>
 </html>
