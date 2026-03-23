@@ -7,8 +7,10 @@ const DEFAULT_ADMIN = {
   role: "admin",
 };
 
-// Initialize default admin if not exists - IMPROVED VERSION
+// Initialize default admin if not exists - FIXED VERSION
 (function initializeAdmin() {
+  console.log("=== INITIALIZING ADMIN ===");
+
   // Get existing users or create new array
   let users = [];
 
@@ -16,7 +18,6 @@ const DEFAULT_ADMIN = {
     const storedUsers = localStorage.getItem("users");
     if (storedUsers) {
       users = JSON.parse(storedUsers);
-      // Make sure users is an array
       if (!Array.isArray(users)) {
         users = [];
       }
@@ -25,6 +26,8 @@ const DEFAULT_ADMIN = {
     console.error("Error parsing users:", e);
     users = [];
   }
+
+  console.log("Current users:", users);
 
   // Check if admin exists
   const adminExists = users.some(
@@ -35,10 +38,12 @@ const DEFAULT_ADMIN = {
   if (!adminExists) {
     users.push(DEFAULT_ADMIN);
     localStorage.setItem("users", JSON.stringify(users));
-    console.log("Admin account created successfully!");
+    console.log("✅ Admin account created successfully!");
   } else {
-    console.log("Admin account already exists");
+    console.log("✅ Admin account already exists");
   }
+
+  console.log("Final users list:", JSON.parse(localStorage.getItem("users")));
 })();
 
 // Sample users data for manage-users page
@@ -106,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
           name: fullName.value,
           email: email.value,
           password: password.value,
-          role: "user", // Default role for new users
+          role: "user",
         });
         localStorage.setItem("users", JSON.stringify(storedUsers));
 
@@ -146,6 +151,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Check credentials
       let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+      console.log("Stored users:", storedUsers);
+      console.log("Login attempt:", email.value, password.value);
+
       const user = storedUsers.find(
         (user) =>
           user.email === email.value && user.password === password.value,
@@ -154,6 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!user) {
         showError(email, "Email or password is incorrect.");
         isValid = false;
+      } else {
+        console.log("User found:", user);
       }
 
       // If valid, redirect based on role
@@ -161,6 +171,15 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("profileName", user.name);
         localStorage.setItem("profileEmail", user.email);
         localStorage.setItem("userRole", user.role || "user");
+
+        console.log(
+          "After login - profileName:",
+          localStorage.getItem("profileName"),
+        );
+        console.log(
+          "After login - userRole:",
+          localStorage.getItem("userRole"),
+        );
 
         alert("Login successful! Redirecting...");
 
@@ -193,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutLink && logoutLink.textContent.includes("Logout")) {
     logoutLink.addEventListener("click", function (e) {
       e.preventDefault();
-      // Clear user data but keep users list
       localStorage.removeItem("profileName");
       localStorage.removeItem("profileEmail");
       localStorage.removeItem("userRole");
@@ -214,49 +232,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     saveBtn.addEventListener("click", function () {
-      // Save theme preference
       const selectedTheme = themeSelect.value;
       localStorage.setItem("theme", selectedTheme);
       document.body.className = selectedTheme + "-theme";
-
-      // Show feedback
       alert("Settings saved!");
     });
   }
+});
 
 // ========== ADMIN DASHBOARD FUNCTIONALITY ==========
 // Check admin access - IMMEDIATE EXECUTION
 (function checkAdminAccess() {
-  // Check if current page is admin page
   const currentPage = window.location.pathname;
-  const isAdminPage = currentPage.includes("admin.html") || 
-                      currentPage.includes("manage-users.html");
-  
+  const isAdminPage =
+    currentPage.includes("admin.html") ||
+    currentPage.includes("manage-users.html");
+
   if (isAdminPage) {
-    // Get user role
     const userRole = localStorage.getItem("userRole");
-    const isLoggedIn = localStorage.getItem("profileName"); // Check if logged in
-    
-    // Debug info (remove in production)
+    const isLoggedIn = localStorage.getItem("profileName");
+
     console.log("Admin access check:", { userRole, isLoggedIn, currentPage });
-    
-    // Redirect conditions
+
     if (!isLoggedIn) {
-      // Not logged in at all
       alert("Please log in first.");
       window.location.href = "login.html";
       return;
     }
-    
+
     if (userRole !== "admin") {
-      // Logged in but not admin
-      alert("Access denied. Admin only.");
-      window.location.href = "profile.html"; // Send to profile instead of login
+      alert("Access denied. Admin only. Your role: " + userRole);
+      window.location.href = "profile.html";
       return;
     }
-    
-    // If we get here, user is admin - allow access
-    console.log("Admin access granted");
+
+    console.log("✅ Admin access granted");
   }
 })();
 
@@ -278,11 +288,8 @@ function validateEmail(email) {
 // ========== USER MANAGEMENT FUNCTIONS ==========
 function initializeUserManagement() {
   let users = [...SAMPLE_USERS];
-
-  // Render users table
   renderUsersTable(users);
 
-  // Add user form handler
   const addUserForm = document.getElementById("addUserForm");
   if (addUserForm) {
     addUserForm.addEventListener("submit", function (e) {
@@ -292,7 +299,6 @@ function initializeUserManagement() {
       const email = document.getElementById("newEmail").value;
       const role = document.getElementById("newRole").value;
 
-      // Create new user
       const newUser = {
         id: users.length + 1,
         name: name,
@@ -302,10 +308,7 @@ function initializeUserManagement() {
 
       users.push(newUser);
       renderUsersTable(users);
-
-      // Clear form
       addUserForm.reset();
-
       alert("User added successfully!");
     });
   }
@@ -319,7 +322,6 @@ function renderUsersTable(users) {
 
   users.forEach((user) => {
     const row = document.createElement("tr");
-
     row.innerHTML = `
       <td>${user.id}</td>
       <td>${user.name}</td>
@@ -329,17 +331,13 @@ function renderUsersTable(users) {
         <button onclick="deleteUser(${user.id})" class="delete-btn">Delete</button>
       </td>
     `;
-
     tableBody.appendChild(row);
   });
 }
 
-// Global function for delete button
 function deleteUser(userId) {
   if (confirm("Are you sure you want to delete this user?")) {
-    // In a real app, you'd remove from array/database
     alert(`User ${userId} deleted (simulated)`);
-    // For demo, we'll just show alert since data is static
   }
 }
 
@@ -349,12 +347,9 @@ const password = document.getElementById("password");
 
 if (togglePassword && password) {
   togglePassword.addEventListener("click", function () {
-    // Toggle the type attribute
     const type =
       password.getAttribute("type") === "password" ? "text" : "password";
     password.setAttribute("type", type);
-
-    // Toggle the eye icon
     this.classList.toggle("fa-eye");
     this.classList.toggle("fa-eye-slash");
   });
