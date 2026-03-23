@@ -3,32 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saved Countries - Guitaria</title>
+    <title>Saved Guitar Songs - Guitaria</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* Additional styles for saved items page */
       .saved-container {
         min-height: 100vh;
         padding: 100px 40px 40px;
         background:
-          linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+          linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
           url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
             center/cover fixed;
       }
 
       .saved-card {
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(12px);
-        border-radius: 12px;
+        border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.25);
         padding: 40px;
-        color: white;
-        max-width: 1200px;
+        max-width: 1300px;
         margin: 0 auto;
+        color: white;
       }
 
       .saved-header {
@@ -38,7 +37,6 @@
 
       .saved-header h1 {
         font-size: 2.5rem;
-        margin-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -51,175 +49,240 @@
 
       .saved-header p {
         color: #ccc;
-        font-size: 1.1rem;
+        margin-top: 8px;
       }
 
-      .saved-stats {
+      .stats-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .saved-count {
         background: rgba(244, 180, 0, 0.2);
-        padding: 15px 25px;
+        padding: 10px 20px;
         border-radius: 30px;
-        display: inline-block;
-        margin: 20px auto;
-        border: 1px solid rgba(244, 180, 0, 0.3);
-      }
-
-      .saved-stats i {
-        color: #f4b400;
-        margin-right: 8px;
-      }
-
-      .saved-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-      }
-
-      .saved-item-card {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        padding: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        transition: all 0.3s;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        position: relative;
-      }
-
-      .saved-item-card:hover {
-        transform: translateY(-5px);
-        border-color: #f4b400;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      }
-
-      .saved-country-name {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #f4b400;
-        margin-bottom: 5px;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding-right: 40px;
-      }
-
-      .saved-flag {
-        font-size: 2rem;
-      }
-
-      .saved-info {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #ccc;
-        font-size: 0.95rem;
-        margin: 5px 0;
-      }
-
-      .saved-info i {
-        width: 20px;
-        color: #f4b400;
-      }
-
-      .saved-date {
-        font-size: 0.8rem;
-        color: #999;
-        margin-top: 10px;
-        font-style: italic;
-      }
-
-      .remove-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(244, 67, 54, 0.2);
-        color: #f44336;
-        border: 1px solid rgba(244, 67, 54, 0.3);
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .remove-btn:hover {
-        background: rgba(244, 67, 54, 0.8);
-        color: white;
-        transform: scale(1.1);
-      }
-
-      .empty-state {
-        text-align: center;
-        padding: 60px 20px;
-        color: #ccc;
-      }
-
-      .empty-state i {
-        font-size: 5rem;
-        color: #f4b400;
-        margin-bottom: 20px;
-        opacity: 0.5;
-      }
-
-      .empty-state h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-        color: white;
-      }
-
-      .empty-state p {
-        margin-bottom: 20px;
-      }
-
-      .empty-state .browse-btn {
-        display: inline-block;
-        padding: 12px 30px;
-        background: #f4b400;
-        color: #000;
-        text-decoration: none;
-        border-radius: 25px;
-        font-weight: bold;
-        transition: all 0.3s;
-      }
-
-      .empty-state .browse-btn:hover {
-        background: #e2a200;
-        transform: translateY(-2px);
       }
 
       .clear-all-btn {
         background: rgba(244, 67, 54, 0.2);
         color: #f44336;
         border: 1px solid rgba(244, 67, 54, 0.3);
-        padding: 10px 20px;
-        border-radius: 20px;
+        padding: 10px 24px;
+        border-radius: 30px;
         cursor: pointer;
         transition: all 0.3s;
-        margin-left: 15px;
+        font-weight: bold;
       }
 
       .clear-all-btn:hover {
-        background: rgba(244, 67, 54, 0.8);
+        background: #f44336;
         color: white;
       }
 
-      .action-buttons {
+      .saved-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 24px;
+      }
+
+      .saved-song-card {
+        background: rgba(30, 30, 40, 0.8);
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s;
+        position: relative;
+      }
+
+      .saved-song-card:hover {
+        transform: translateY(-5px);
+        border-color: #f4b400;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .saved-song-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #f4b400;
+        margin-bottom: 10px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        gap: 15px;
-        margin: 20px 0;
-        flex-wrap: wrap;
+        gap: 10px;
+        padding-right: 35px;
+      }
+
+      .saved-song-artist {
+        color: #ddd;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .saved-song-artist i {
+        color: #f4b400;
+      }
+
+      .song-preview {
+        margin: 12px 0;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+      }
+
+      .song-preview audio {
+        width: 100%;
+        height: 35px;
+      }
+
+      .song-album-art {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .view-chords-link {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 8px 20px;
+        background: rgba(244, 180, 0, 0.2);
+        border: 1px solid #f4b400;
+        border-radius: 30px;
+        color: #f4b400;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+      }
+
+      .view-chords-link:hover {
+        background: #f4b400;
+        color: #000;
+      }
+
+      .saved-date {
+        font-size: 0.75rem;
+        color: #888;
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .remove-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(244, 67, 54, 0.2);
+        color: #f44336;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .remove-btn:hover {
+        background: #f44336;
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+      }
+
+      .empty-state i {
+        font-size: 5rem;
+        color: #f4b400;
+        opacity: 0.5;
+        margin-bottom: 20px;
+      }
+
+      .empty-state h2 {
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      .browse-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 30px;
+        background: #f4b400;
+        color: #000;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .browse-btn:hover {
+        background: #e2a200;
+        transform: translateY(-2px);
+      }
+
+      .toast-message {
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #4caf50;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 2000;
+        animation:
+          slideIn 0.3s ease,
+          fadeOut 0.3s ease 2.7s;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .saved-container {
+          padding: 80px 20px 30px;
+        }
+        .saved-card {
+          padding: 25px;
+        }
+        .saved-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
-
   <body>
-    <!-- Navbar -->
     <nav class="navbar">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -231,198 +294,190 @@
       </ul>
     </nav>
 
-    <!-- Saved Items Container -->
     <div class="saved-container">
       <div class="saved-card">
         <div class="saved-header">
-          <h1>
-            <i class="fas fa-bookmark"></i>
-            Saved Countries
-          </h1>
-          <p>Your collection of saved countries from around the world</p>
+          <h1><i class="fas fa-bookmark"></i> My Saved Guitar Songs</h1>
+          <p>
+            Your collection of favorite songs with chords and tabs to practice
+          </p>
         </div>
 
-        <!-- Stats and Actions -->
-        <div class="action-buttons">
-          <div id="savedStats" class="saved-stats">
-            <i class="fas fa-globe"></i>
-            <span id="savedCount">0</span> countries saved
+        <div class="stats-bar">
+          <div class="saved-count">
+            <i class="fas fa-music"></i>
+            <span id="songCount">0</span> songs saved
           </div>
           <button id="clearAllBtn" class="clear-all-btn">
             <i class="fas fa-trash-alt"></i> Clear All
           </button>
         </div>
 
-        <!-- Saved Items Grid -->
-        <div id="savedGrid" class="saved-grid">
-          <!-- Items will be inserted here by JavaScript -->
-        </div>
+        <div id="savedGrid" class="saved-grid"></div>
 
-        <!-- Empty State -->
         <div id="emptyState" class="empty-state" style="display: none">
-          <i class="fas fa-bookmark"></i>
-          <h2>No saved countries yet</h2>
-          <p>Browse countries and save your favorites to see them here!</p>
+          <i class="fas fa-guitar"></i>
+          <h2>No saved songs yet</h2>
+          <p>Search for songs on the API page and save your favorites!</p>
           <a href="api.html" class="browse-btn">
-            <i class="fas fa-search"></i> Browse Countries
+            <i class="fas fa-search"></i> Search Songs
           </a>
         </div>
       </div>
     </div>
 
     <script>
-      // Load and display saved countries
-      function loadSavedCountries() {
-        const savedGrid = document.getElementById("savedGrid");
-        const emptyState = document.getElementById("emptyState");
-        const savedCount = document.getElementById("savedCount");
+      const STORAGE_KEY = "savedGuitarSongs";
 
-        // Get saved countries from localStorage
-        let savedCountries = [];
+      // Clean up old localStorage items
+      function cleanupOldStorage() {
+        const oldKeys = ["savedGuitars", "savedSongs", "savedCountries"];
+        oldKeys.forEach((key) => {
+          if (localStorage.getItem(key) !== null) {
+            localStorage.removeItem(key);
+            console.log(`Removed old storage: ${key}`);
+          }
+        });
+      }
+
+      // Run cleanup immediately
+      cleanupOldStorage();
+
+      function getSavedSongs() {
         try {
-          savedCountries =
-            JSON.parse(localStorage.getItem("savedCountries")) || [];
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
         } catch (e) {
-          savedCountries = [];
+          return [];
         }
+      }
 
-        // Update count
-        savedCount.textContent = savedCountries.length;
+      function saveSongsToLocalStorage(songs) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(songs));
+      }
 
-        // Show/hide empty state
-        if (savedCountries.length === 0) {
-          savedGrid.innerHTML = "";
+      function showToast(message) {
+        const toast = document.createElement("div");
+        toast.className = "toast-message";
+        toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+
+      function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function (m) {
+          if (m === "&") return "&amp;";
+          if (m === "<") return "&lt;";
+          if (m === ">") return "&gt;";
+          return m;
+        });
+      }
+
+      function removeSavedSong(trackId, songName) {
+        let savedSongs = getSavedSongs();
+        const newSongs = savedSongs.filter((song) => song.trackId !== trackId);
+
+        if (newSongs.length !== savedSongs.length) {
+          saveSongsToLocalStorage(newSongs);
+          showToast(`Removed "${songName}" from saved songs`);
+          loadSavedSongs();
+        }
+      }
+
+      function clearAllSongs() {
+        if (confirm("Are you sure you want to remove ALL saved songs?")) {
+          localStorage.removeItem(STORAGE_KEY);
+          showToast("All saved songs have been removed");
+          loadSavedSongs();
+        }
+      }
+
+      function loadSavedSongs() {
+        const savedSongs = getSavedSongs();
+        const grid = document.getElementById("savedGrid");
+        const emptyState = document.getElementById("emptyState");
+        const countSpan = document.getElementById("songCount");
+
+        countSpan.textContent = savedSongs.length;
+
+        if (savedSongs.length === 0) {
+          grid.innerHTML = "";
           emptyState.style.display = "block";
           return;
         }
 
         emptyState.style.display = "none";
-        savedGrid.innerHTML = "";
+        grid.innerHTML = "";
 
-        // Create a copy for display sorting (keep original for removal)
-        const displayCountries = [...savedCountries].sort(
+        const sortedSongs = [...savedSongs].sort(
           (a, b) => new Date(b.savedAt) - new Date(a.savedAt),
         );
 
-        // Display each saved country
-        displayCountries.forEach((country) => {
+        sortedSongs.forEach((song) => {
           const card = document.createElement("div");
-          card.className = "saved-item-card";
-
-          // Format date
-          const savedDate = new Date(country.savedAt);
-          const dateStr = savedDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-
-          // Escape quotes for the onclick parameter
-          const countryName = country.name.replace(/'/g, "\\'");
+          card.className = "saved-song-card";
 
           card.innerHTML = `
-        <div class="saved-country-name">
-          <span class="saved-flag">${country.flag || "🏳️"}</span>
-          ${country.name}
-        </div>
-        <button class="remove-btn" onclick="removeSavedCountry('${countryName}')" title="Remove from saved">
-          <i class="fas fa-times"></i>
-        </button>
-        <div class="saved-info">
-          <i class="fas fa-map-marker-alt"></i>
-          Capital: ${country.capital || "No capital"}
-        </div>
-        <div class="saved-info">
-          <i class="fas fa-users"></i>
-          Population: ${country.population || "Unknown"}
-        </div>
-        <div class="saved-info">
-          <i class="fas fa-globe"></i>
-          Region: ${country.region || "Unknown"}
-        </div>
-        <div class="saved-info">
-          <i class="fas fa-globe-asia"></i>
-          Subregion: ${country.subregion || "Not specified"}
-        </div>
-        <div class="saved-info">
-          <i class="fas fa-money-bill-wave"></i>
-          Currency: ${country.currency || "No data"}
-        </div>
-        <div class="saved-info">
-          <i class="fas fa-language"></i>
-          Languages: ${country.languages || "No data"}
-        </div>
-        <div class="saved-date">
-          <i class="far fa-calendar-alt"></i> Saved on: ${dateStr}
-        </div>
-      `;
+                    <button class="remove-btn" onclick="removeSavedSong(${song.trackId}, '${song.trackName.replace(/'/g, "\\'")}')" title="Remove from saved">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="saved-song-title">
+                        <i class="fas fa-music"></i> ${escapeHtml(song.trackName)}
+                    </div>
+                    <div class="saved-song-artist">
+                        <i class="fas fa-user"></i> ${escapeHtml(song.artistName)}
+                    </div>
+                    <div style="display: flex; gap: 15px; margin: 15px 0;">
+                        ${song.artworkUrl ? `<img src="${song.artworkUrl}" class="song-album-art" alt="album art">` : '<div class="song-album-art" style="background:rgba(244,180,0,0.2); display:flex; align-items:center; justify-content:center;"><i class="fas fa-music" style="font-size:1.5rem;"></i></div>'}
+                        <div style="flex: 1;">
+                            <span style="background: rgba(76, 175, 80, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">
+                                <i class="fas fa-chord"></i> Guitar Chords Available
+                            </span>
+                        </div>
+                    </div>
+                    ${
+                      song.previewUrl
+                        ? `
+                    <div class="song-preview">
+                        <audio controls preload="none">
+                            <source src="${song.previewUrl}" type="audio/mpeg">
+                            Your browser does not support audio preview.
+                        </audio>
+                    </div>
+                    `
+                        : ""
+                    }
+                    <a href="${song.chordSearchLink || `https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURIComponent(song.trackName + " " + song.artistName)}`}" target="_blank" class="view-chords-link">
+                        <i class="fas fa-guitar"></i> View Chords / Tabs
+                    </a>
+                    <div class="saved-date">
+                        <i class="far fa-calendar-alt"></i> Saved on: ${formatDate(song.savedAt)}
+                    </div>
+                `;
 
-          savedGrid.appendChild(card);
+          grid.appendChild(card);
         });
       }
 
-      // Remove a saved country by name (unique identifier)
-      window.removeSavedCountry = function (countryName) {
-        let savedCountries =
-          JSON.parse(localStorage.getItem("savedCountries")) || [];
+      document.addEventListener("DOMContentLoaded", () => {
+        loadSavedSongs();
 
-        // Find the index of the country with matching name
-        const index = savedCountries.findIndex((c) => c.name === countryName);
-
-        if (index !== -1) {
-          const removed = savedCountries[index];
-          savedCountries.splice(index, 1);
-          localStorage.setItem(
-            "savedCountries",
-            JSON.stringify(savedCountries),
-          );
-
-          // Show message
-          showNotification(`Removed ${removed.name} from saved`);
-
-          // Reload display
-          loadSavedCountries();
+        const clearBtn = document.getElementById("clearAllBtn");
+        if (clearBtn) {
+          clearBtn.addEventListener("click", clearAllSongs);
         }
-      };
-
-      // Clear all saved countries
-      document.addEventListener("DOMContentLoaded", function () {
-        const clearAllBtn = document.getElementById("clearAllBtn");
-
-        if (clearAllBtn) {
-          clearAllBtn.addEventListener("click", function () {
-            if (
-              confirm("Are you sure you want to remove all saved countries?")
-            ) {
-              localStorage.removeItem("savedCountries");
-              showNotification("All saved countries removed");
-              loadSavedCountries();
-            }
-          });
-        }
-
-        // Load saved countries on page load
-        loadSavedCountries();
       });
 
-      // Show notification
-      function showNotification(message) {
-        const msgDiv = document.createElement("div");
-        msgDiv.className = "save-message";
-        msgDiv.style.background = "#2196f3";
-        msgDiv.innerHTML = `
-      <i class="fas fa-info-circle"></i>
-      ${message}
-    `;
-
-        document.body.appendChild(msgDiv);
-
-        setTimeout(() => {
-          msgDiv.remove();
-        }, 3000);
-      }
+      window.removeSavedSong = removeSavedSong;
     </script>
   </body>
 </html>

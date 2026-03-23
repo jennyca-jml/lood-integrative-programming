@@ -3,32 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Country Information - Guitaria API Demo</title>
+    <title>Guitar Chords & Tabs Search - Guitaria API</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <style>
-      /* Additional styles specific to API demo page */
       .api-container {
         min-height: 100vh;
         padding: 100px 40px 40px;
         background:
-          linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+          linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
           url("https://images.unsplash.com/photo-1511379938547-c1f69419868d")
             center/cover fixed;
       }
 
       .api-card {
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(12px);
-        border-radius: 12px;
+        border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.25);
         padding: 40px;
-        color: white;
-        max-width: 1200px;
+        max-width: 1300px;
         margin: 0 auto;
+        color: white;
       }
 
       .api-header {
@@ -70,10 +69,10 @@
 
       .search-input {
         flex: 1;
-        min-width: 250px;
-        padding: 15px 20px;
+        min-width: 280px;
+        padding: 15px 24px;
         border: 2px solid rgba(255, 255, 255, 0.2);
-        border-radius: 30px;
+        border-radius: 50px;
         background: rgba(255, 255, 255, 0.15);
         color: white;
         font-size: 1rem;
@@ -83,18 +82,18 @@
       .search-input:focus {
         outline: none;
         border-color: #f4b400;
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.25);
       }
 
       .search-input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.6);
       }
 
       .search-btn {
         padding: 15px 40px;
         background: #f4b400;
         border: none;
-        border-radius: 30px;
+        border-radius: 50px;
         color: #000;
         font-weight: bold;
         font-size: 1rem;
@@ -111,34 +110,25 @@
         box-shadow: 0 5px 15px rgba(244, 180, 0, 0.3);
       }
 
-      .search-btn i {
-        font-size: 1.1rem;
-      }
-
-      .examples-section {
-        text-align: center;
-        margin-top: 20px;
-      }
-
-      .example-countries {
+      .example-songs {
         display: flex;
         gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 20px;
       }
 
-      .example-country {
+      .example-song {
         background: rgba(255, 255, 255, 0.1);
-        padding: 5px 15px;
-        border-radius: 20px;
+        padding: 6px 18px;
+        border-radius: 25px;
         font-size: 0.9rem;
         cursor: pointer;
         transition: all 0.3s;
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .example-country:hover {
+      .example-song:hover {
         background: #f4b400;
         color: #000;
         transform: translateY(-2px);
@@ -146,7 +136,7 @@
 
       .loading-spinner {
         text-align: center;
-        padding: 40px;
+        padding: 50px;
         display: none;
       }
 
@@ -169,7 +159,8 @@
         background: rgba(0, 0, 0, 0.3);
         border-radius: 12px;
         padding: 30px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 20px;
+        display: none;
       }
 
       .results-header {
@@ -185,7 +176,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
       }
 
       .results-header h2 i {
@@ -197,159 +188,154 @@
         padding: 8px 16px;
         border-radius: 20px;
         font-size: 0.9rem;
-        border: 1px solid rgba(244, 180, 0, 0.3);
       }
 
-      .countries-grid {
+      .songs-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 24px;
         margin-top: 20px;
       }
 
-      .country-card {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+      .song-card {
+        background: rgba(30, 30, 40, 0.8);
+        border-radius: 20px;
         padding: 20px;
         border: 1px solid rgba(255, 255, 255, 0.15);
         transition: all 0.3s;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        position: relative;
       }
 
-      .country-card:hover {
+      .song-card:hover {
         transform: translateY(-5px);
         border-color: #f4b400;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       }
 
-      .country-name {
+      .song-name {
         font-size: 1.2rem;
         font-weight: bold;
         color: #f4b400;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         display: flex;
         align-items: center;
         gap: 10px;
+        padding-right: 70px;
       }
 
-      .country-flag {
-        font-size: 2rem;
-      }
-
-      .country-info {
+      .song-artist {
+        color: #ccc;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
         gap: 8px;
-        color: #ccc;
         font-size: 0.95rem;
-        margin: 5px 0;
       }
 
-      .country-info i {
-        width: 20px;
+      .song-artist i {
         color: #f4b400;
       }
 
-      .no-results {
-        text-align: center;
-        padding: 40px;
-        color: #ccc;
-      }
-
-      .no-results i {
-        font-size: 3rem;
-        color: #f4b400;
-        margin-bottom: 15px;
-        opacity: 0.5;
-      }
-
-      .error-message-api {
-        background: rgba(244, 67, 54, 0.2);
-        border: 1px solid rgba(244, 67, 54, 0.5);
+      .song-preview {
+        margin: 12px 0;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.3);
         border-radius: 10px;
-        padding: 20px;
-        text-align: center;
-        color: #ff8a80;
-        margin: 20px 0;
       }
 
-      .error-message-api i {
-        font-size: 2rem;
-        margin-bottom: 10px;
-      }
-
-      .info-note {
-        background: rgba(33, 150, 243, 0.1);
-        border-left: 4px solid #2196f3;
-        padding: 15px;
-        border-radius: 5px;
-        margin-top: 20px;
-        font-size: 0.9rem;
-        color: #ccc;
-      }
-
-      .info-note i {
-        color: #2196f3;
-        margin-right: 8px;
-      }
-
-      @media (max-width: 768px) {
-        .api-container {
-          padding: 80px 20px 20px;
-        }
-
-        .search-box {
-          flex-direction: column;
-        }
-
-        .search-btn {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .countries-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* Add to existing styles in api.html */
-      .save-btn {
-        margin-top: 10px;
-        padding: 8px 16px;
-        background: rgba(76, 175, 80, 0.3);
-        color: white;
-        border: 1px solid rgba(76, 175, 80, 0.5);
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: all 0.3s;
+      .song-preview audio {
         width: 100%;
+        height: 35px;
+        border-radius: 20px;
       }
 
-      .save-btn:hover:not(.saved) {
-        background: rgba(76, 175, 80, 0.6);
-        border-color: #4caf50;
+      .song-album-art {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .saved-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #4caf50;
+        color: white;
+        font-size: 0.7rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 12px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+      }
+
+      .view-chords-btn,
+      .save-song-btn {
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        border: none;
+        font-weight: 500;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .view-chords-btn {
+        background: rgba(244, 180, 0, 0.2);
+        border: 1px solid #f4b400;
+        color: #f4b400;
+      }
+
+      .view-chords-btn:hover {
+        background: #f4b400;
+        color: #000;
         transform: translateY(-2px);
       }
 
-      .save-btn.saved {
+      .save-song-btn {
+        background: rgba(76, 175, 80, 0.2);
+        border: 1px solid #4caf50;
+        color: #4caf50;
+      }
+
+      .save-song-btn:hover:not(.saved) {
         background: #4caf50;
         color: white;
-        border-color: #4caf50;
+        transform: translateY(-2px);
+      }
+
+      .save-song-btn.saved {
+        background: #4caf50;
+        color: white;
         cursor: default;
+        opacity: 0.8;
       }
 
-      .save-btn.saved:hover {
-        transform: none;
+      .no-results,
+      .error-message {
+        text-align: center;
+        padding: 50px;
       }
 
-      .save-message {
+      .no-results i,
+      .error-message i {
+        font-size: 3rem;
+        color: #f4b400;
+        margin-bottom: 15px;
+        opacity: 0.6;
+      }
+
+      .toast-message {
         position: fixed;
         top: 100px;
         right: 20px;
@@ -358,10 +344,14 @@
         padding: 12px 24px;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
+        z-index: 2000;
         animation:
           slideIn 0.3s ease,
           fadeOut 0.3s ease 2.7s;
+      }
+
+      .toast-message.warning {
+        background: #ff9800;
       }
 
       @keyframes slideIn {
@@ -384,34 +374,26 @@
         }
       }
 
-      .saved-badge {
-        background: #4caf50;
-        color: white;
-        font-size: 0.7rem;
-        padding: 2px 8px;
-        border-radius: 12px;
-        margin-left: 10px;
-      }
-
-      /* Add to style.css or internal style */
-      .nav-links .saved-link {
-        padding: 6px 14px;
-        border-radius: 20px;
-        background: #4caf50;
-        color: white;
-        font-weight: bold;
-      }
-
-      .nav-links .saved-link:hover {
-        background: #45a049;
-        color: white;
+      @media (max-width: 768px) {
+        .api-container {
+          padding: 80px 20px 30px;
+        }
+        .api-card {
+          padding: 25px;
+        }
+        .search-box {
+          flex-direction: column;
+        }
+        .search-btn {
+          justify-content: center;
+        }
+        .songs-grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
-
   <body>
-    <!-- Navbar -->
-    <!-- Navbar -->
     <nav class="navbar">
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -423,413 +405,326 @@
       </ul>
     </nav>
 
-    <!-- API Demo Container -->
     <div class="api-container">
       <div class="api-card">
         <div class="api-header">
-          <h1>
-            <i class="fas fa-globe-americas"></i>
-            Country Information
-          </h1>
-          <p>Search for country information</p>
+          <h1><i class="fas fa-guitar"></i> Guitar Chords & Tabs Search</h1>
+          <p>
+            Search for any song, listen to previews, and save your favorites to
+            practice later!
+          </p>
         </div>
 
-        <!-- Search Section -->
         <div class="search-section">
           <div class="search-box">
             <input
               type="text"
-              id="countryInput"
+              id="songInput"
               class="search-input"
-              placeholder="Enter a country name (e.g., Philippines, Japan, Canada)"
-              value="Philippines"
+              placeholder="Enter song name or artist... (e.g., 'Shape of You', 'Ed Sheeran')"
             />
             <button id="searchBtn" class="search-btn">
-              <i class="fas fa-search"></i>
-              Search Country
+              <i class="fas fa-search"></i> Search Song
             </button>
           </div>
-
-          <div class="examples-section">
-            <p style="color: #ccc; margin-bottom: 8px">Try search for:</p>
-            <div class="example-countries">
-              <span
-                class="example-country"
-                onclick="searchExample('Philippines')"
-                >🇵🇭 Philippines</span
-              >
-              <span class="example-country" onclick="searchExample('Japan')"
-                >🇯🇵 Japan</span
-              >
-              <span class="example-country" onclick="searchExample('Canada')"
-                >🇨🇦 Canada</span
-              >
-              <span class="example-country" onclick="searchExample('Brazil')"
-                >🇧🇷 Brazil</span
-              >
-              <span class="example-country" onclick="searchExample('France')"
-                >🇫🇷 France</span
-              >
-              <span class="example-country" onclick="searchExample('Australia')"
-                >🇦🇺 Australia</span
-              >
-            </div>
+          <div class="example-songs">
+            <span class="example-song" onclick="searchExample('Shape of You')"
+              >🎸 Shape of You</span
+            >
+            <span class="example-song" onclick="searchExample('Wonderwall')"
+              >🎸 Wonderwall</span
+            >
+            <span class="example-song" onclick="searchExample('Let It Be')"
+              >🎸 Let It Be</span
+            >
+            <span
+              class="example-song"
+              onclick="searchExample('Hotel California')"
+              >🎸 Hotel California</span
+            >
+            <span class="example-song" onclick="searchExample('Yellow')"
+              >🎸 Yellow</span
+            >
+            <span
+              class="example-song"
+              onclick="searchExample('Stairway to Heaven')"
+              >🎸 Stairway to Heaven</span
+            >
           </div>
         </div>
 
-        <!-- Loading Spinner -->
         <div id="loadingSpinner" class="loading-spinner">
-          <i class="fas fa-spinner"></i>
-          <p style="margin-top: 10px">Searching for country information...</p>
+          <i class="fas fa-spinner fa-spin"></i>
+          <p style="margin-top: 12px">Searching for songs...</p>
         </div>
 
-        <!-- Results Section -->
         <div id="resultsSection" class="results-section">
           <div class="results-header">
-            <h2>
-              <i class="fas fa-info-circle"></i>
-              Country Details
-            </h2>
-            <div id="resultsCount" class="results-count">0 countries found</div>
+            <h2><i class="fas fa-list-ul"></i> Song Results</h2>
+            <div id="resultsCount" class="results-count">0 songs found</div>
           </div>
-
-          <!-- Error Message Container -->
-          <div
-            id="errorMessage"
-            class="error-message-api"
-            style="display: none"
-          >
-            <i class="fas fa-exclamation-triangle"></i>
-            <p id="errorText"></p>
-          </div>
-
-          <!-- Countries Grid -->
-          <div id="countriesGrid" class="countries-grid">
-            <!-- Results will be inserted here by JavaScript -->
-          </div>
-
-          <!-- No Results Message -->
+          <div id="songsGrid" class="songs-grid"></div>
           <div id="noResults" class="no-results" style="display: none">
             <i class="fas fa-search"></i>
-            <h3>No countries found</h3>
-            <p>Try searching for a different country or check the spelling.</p>
+            <h3>No songs found</h3>
+            <p>Try a different song name or check the spelling.</p>
           </div>
-
-          <!-- Info Note -->
-          <div class="info-note">
-            <i class="fas fa-info-circle"></i>
-            Data provided by <strong>REST Countries API</strong> - A free public
-            API for country information worldwide.
+          <div id="errorMessage" class="error-message" style="display: none">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p id="errorText"></p>
           </div>
         </div>
       </div>
     </div>
 
     <script>
-      // API Endpoint - Using REST Countries API (works with HTTPS)
-      const API_URL = "https://restcountries.com/v3.1/name/";
+      const STORAGE_KEY = "savedGuitarSongs";
+      const ITUNES_API =
+        "https://itunes.apple.com/search?media=music&entity=song&limit=15&term=";
+
+      // Clean up old localStorage items
+      function cleanupOldStorage() {
+        const oldKeys = ["savedGuitars", "savedSongs", "savedCountries"];
+        oldKeys.forEach((key) => {
+          if (localStorage.getItem(key) !== null) {
+            localStorage.removeItem(key);
+            console.log(`Removed old storage: ${key}`);
+          }
+        });
+      }
+
+      // Run cleanup immediately
+      cleanupOldStorage();
 
       // DOM Elements
-      const countryInput = document.getElementById("countryInput");
+      const songInput = document.getElementById("songInput");
       const searchBtn = document.getElementById("searchBtn");
       const loadingSpinner = document.getElementById("loadingSpinner");
-      const countriesGrid = document.getElementById("countriesGrid");
+      const resultsSection = document.getElementById("resultsSection");
+      const songsGrid = document.getElementById("songsGrid");
       const noResults = document.getElementById("noResults");
       const errorMessage = document.getElementById("errorMessage");
       const errorText = document.getElementById("errorText");
       const resultsCount = document.getElementById("resultsCount");
 
-      // Search for country when page loads (show Philippines as default)
-      document.addEventListener("DOMContentLoaded", function () {
-        searchCountry("Philippines");
-      });
-
-      // Search button click event
-      searchBtn.addEventListener("click", function () {
-        const country = countryInput.value.trim();
-        if (country) {
-          searchCountry(country);
-        } else {
-          showError("Please enter a country name");
-        }
-      });
-
-      // Enter key press event
-      countryInput.addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-          const country = countryInput.value.trim();
-          if (country) {
-            searchCountry(country);
-          } else {
-            showError("Please enter a country name");
-          }
-        }
-      });
-
-      // Function to search country
-      async function searchCountry(country) {
-        // Hide previous results and errors
-        hideAllResults();
-
-        // Show loading spinner
-        loadingSpinner.style.display = "block";
-        countriesGrid.innerHTML = "";
-
+      // Saved songs functions - using consistent STORAGE_KEY
+      function getSavedSongs() {
         try {
-          // Encode the country name for URL
-          const encodedCountry = encodeURIComponent(country);
-
-          // Make API request
-          const url = `${API_URL}${encodedCountry}`;
-          console.log("Fetching from:", url);
-
-          const response = await fetch(url);
-
-          // Check if response is ok
-          if (!response.ok) {
-            if (response.status === 404) {
-              throw new Error("Country not found");
-            } else {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-          }
-
-          // Parse JSON response
-          const data = await response.json();
-
-          // Hide loading spinner
-          loadingSpinner.style.display = "none";
-
-          // Process and display results
-          if (data && data.length > 0) {
-            displayCountries(data);
-          } else {
-            // No results found
-            noResults.style.display = "block";
-            resultsCount.textContent = "0 countries found";
-          }
-        } catch (error) {
-          // Handle errors
-          console.error("Error fetching country:", error);
-          loadingSpinner.style.display = "none";
-
-          // Show error message
-          errorText.textContent =
-            error.message === "Country not found"
-              ? `No country found with name "${country}"`
-              : "Failed to fetch country information. Please try again later.";
-          errorMessage.style.display = "block";
-          resultsCount.textContent = "0 countries found";
-
-          setTimeout(() => {
-            errorMessage.style.display = "none";
-          }, 5000);
-        }
-      }
-
-      // Function to display countries
-      function displayCountries(countries) {
-        // Clear the grid
-        countriesGrid.innerHTML = "";
-
-        // Update results count
-        resultsCount.textContent = `${countries.length} countr${
-          countries.length === 1 ? "y" : "ies"
-        } found`;
-
-        // Sort countries alphabetically by name
-        countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
-
-        // Get saved countries from localStorage
-        let savedCountries = [];
-        try {
-          savedCountries =
-            JSON.parse(localStorage.getItem("savedCountries")) || [];
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
         } catch (e) {
-          savedCountries = [];
+          return [];
         }
+      }
 
-        // Create card for each country
-        countries.forEach((country) => {
-          const card = document.createElement("div");
-          card.className = "country-card";
+      function saveSongsToLocalStorage(songs) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(songs));
+      }
 
-          // Get country data with fallbacks
-          const name = country.name.common || "Unknown";
-          const countryCode = country.cca2 || "";
-          const capital = country.capital ? country.capital[0] : "No capital";
-          const population = country.population
-            ? country.population.toLocaleString()
-            : "Unknown";
-          const region = country.region || "Unknown";
-          const subregion = country.subregion || "Not specified";
-          const flag = country.flag || "🏳️";
-          const currency = country.currencies
-            ? Object.values(country.currencies)[0].name
-            : "No currency data";
-          const languages = country.languages
-            ? Object.values(country.languages).join(", ")
-            : "No language data";
-          const flagUrl = country.flags?.png || "";
+      function isSongSaved(trackId) {
+        const saved = getSavedSongs();
+        return saved.some((song) => song.trackId === trackId);
+      }
 
-          // Check if country is already saved
-          const isSaved = savedCountries.some(
-            (saved) => saved.name === name || saved.cca2 === countryCode,
-          );
+      function saveSongToLocalStorage(songData) {
+        let saved = getSavedSongs();
+        if (saved.some((s) => s.trackId === songData.trackId)) {
+          showToast("This song is already saved!", "warning");
+          return false;
+        }
+        songData.savedAt = new Date().toISOString();
+        saved.push(songData);
+        saveSongsToLocalStorage(saved);
+        showToast(`✓ "${songData.trackName}" saved to your collection!`);
+        return true;
+      }
 
-          card.innerHTML = `
-      <div class="country-name">
-        <span class="country-flag">${flag}</span>
-        ${name}
-        ${isSaved ? '<span class="saved-badge">Saved</span>' : ""}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-map-marker-alt"></i>
-        Capital: ${capital}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-users"></i>
-        Population: ${population}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-globe"></i>
-        Region: ${region}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-globe-asia"></i>
-        Subregion: ${subregion}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-money-bill-wave"></i>
-        Currency: ${currency}
-      </div>
-      <div class="country-info">
-        <i class="fas fa-language"></i>
-        Languages: ${languages}
-      </div>
-      <button class="save-btn ${isSaved ? "saved" : ""}" 
-              data-country='${JSON.stringify({
-                name,
-                capital,
-                population,
-                region,
-                subregion,
-                currency,
-                languages,
-                flag,
-                flagUrl,
-                cca2: countryCode,
-              }).replace(/'/g, "&apos;")}'>
-        <i class="fas ${isSaved ? "fa-check" : "fa-bookmark"}"></i>
-        ${isSaved ? "Saved" : "Save Country"}
-      </button>
-    `;
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = "toast-message";
+        if (type === "warning") toast.classList.add("warning");
+        toast.innerHTML = `<i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
 
-          countriesGrid.appendChild(card);
-        });
-
-        // Add event listeners to save buttons
-        document.querySelectorAll(".save-btn:not(.saved)").forEach((btn) => {
-          btn.addEventListener("click", handleSaveCountry);
+      function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function (m) {
+          if (m === "&") return "&amp;";
+          if (m === "<") return "&lt;";
+          if (m === ">") return "&gt;";
+          return m;
         });
       }
 
-      // Handle saving country to localStorage
-      function handleSaveCountry(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      async function searchSongs() {
+        const query = songInput.value.trim();
 
-        const btn = e.currentTarget;
-        const countryData = JSON.parse(btn.dataset.country);
-
-        // Get existing saved countries
-        let savedCountries = [];
-        try {
-          savedCountries =
-            JSON.parse(localStorage.getItem("savedCountries")) || [];
-        } catch (err) {
-          savedCountries = [];
-        }
-
-        // Check for duplicates (by name or country code)
-        const isDuplicate = savedCountries.some(
-          (c) => c.name === countryData.name || c.cca2 === countryData.cca2,
-        );
-
-        if (isDuplicate) {
-          showSaveMessage("Country already saved!", "warning");
+        if (!query) {
+          showToast("Please enter a song name or artist", "warning");
           return;
         }
 
-        // Add timestamp
-        countryData.savedAt = new Date().toISOString();
-
-        // Save to localStorage
-        savedCountries.push(countryData);
-        localStorage.setItem("savedCountries", JSON.stringify(savedCountries));
-
-        // Update button appearance
-        btn.classList.add("saved");
-        btn.innerHTML = '<i class="fas fa-check"></i> Saved';
-        btn.removeEventListener("click", handleSaveCountry);
-
-        // Add saved badge to country name
-        const countryNameDiv = btn
-          .closest(".country-card")
-          .querySelector(".country-name");
-        if (!countryNameDiv.querySelector(".saved-badge")) {
-          const badge = document.createElement("span");
-          badge.className = "saved-badge";
-          badge.textContent = "Saved";
-          countryNameDiv.appendChild(badge);
-        }
-
-        // Show success message
-        showSaveMessage("Country saved successfully!");
-      }
-
-      // Show save message
-      function showSaveMessage(message, type = "success") {
-        const msgDiv = document.createElement("div");
-        msgDiv.className = "save-message";
-        msgDiv.style.background = type === "success" ? "#4caf50" : "#ff9800";
-        msgDiv.innerHTML = `
-    <i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i>
-    ${message}
-  `;
-
-        document.body.appendChild(msgDiv);
-
-        setTimeout(() => {
-          msgDiv.remove();
-        }, 3000);
-      }
-
-      // Function to search from example clicks
-      window.searchExample = function (country) {
-        countryInput.value = country;
-        searchCountry(country);
-      };
-
-      // Function to show error message
-      function showError(message) {
-        errorText.textContent = message;
-        errorMessage.style.display = "block";
-        loadingSpinner.style.display = "none";
-        resultsCount.textContent = "0 countries found";
-
-        // Hide error after 5 seconds
-        setTimeout(() => {
-          errorMessage.style.display = "none";
-        }, 5000);
-      }
-
-      // Function to hide all result containers
-      function hideAllResults() {
+        resultsSection.style.display = "block";
+        loadingSpinner.style.display = "block";
+        songsGrid.innerHTML = "";
         noResults.style.display = "none";
         errorMessage.style.display = "none";
-        countriesGrid.innerHTML = "";
+        resultsCount.textContent = "Searching...";
+
+        try {
+          const encodedQuery = encodeURIComponent(query);
+          const response = await fetch(ITUNES_API + encodedQuery);
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          loadingSpinner.style.display = "none";
+
+          if (data.results && data.results.length > 0) {
+            const uniqueSongs = [];
+            const trackIds = new Set();
+            for (const song of data.results) {
+              if (!trackIds.has(song.trackId)) {
+                trackIds.add(song.trackId);
+                uniqueSongs.push(song);
+              }
+            }
+            displaySongs(uniqueSongs);
+          } else {
+            songsGrid.innerHTML = "";
+            noResults.style.display = "block";
+            resultsCount.textContent = "0 songs found";
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          loadingSpinner.style.display = "none";
+          errorMessage.style.display = "block";
+          errorText.textContent =
+            "Failed to fetch songs. Please check your connection and try again.";
+          resultsCount.textContent = "Error";
+        }
       }
+
+      function displaySongs(songs) {
+        noResults.style.display = "none";
+        errorMessage.style.display = "none";
+        songsGrid.innerHTML = "";
+        resultsCount.textContent = `${songs.length} song${songs.length !== 1 ? "s" : ""} found`;
+
+        const savedSongs = getSavedSongs();
+
+        songs.forEach((song) => {
+          const trackId = song.trackId;
+          const songName = song.trackName || "Unknown Title";
+          const artistName = song.artistName || "Unknown Artist";
+          const artwork = song.artworkUrl100 || "";
+          const previewUrl = song.previewUrl || "";
+          const itunesUrl = song.trackViewUrl || "";
+          const isSaved = savedSongs.some((s) => s.trackId === trackId);
+
+          const chordSearchLink = `https://www.ultimate-guitar.com/search.php?search_type=title&value=${encodeURIComponent(songName + " " + artistName)}`;
+
+          const card = document.createElement("div");
+          card.className = "song-card";
+
+          if (isSaved) {
+            const badge = document.createElement("div");
+            badge.className = "saved-badge";
+            badge.innerHTML = '<i class="fas fa-check"></i> Saved';
+            card.appendChild(badge);
+          }
+
+          card.innerHTML += `
+                    <div class="song-name">
+                        <i class="fas fa-music"></i> ${escapeHtml(songName)}
+                    </div>
+                    <div class="song-artist">
+                        <i class="fas fa-user"></i> ${escapeHtml(artistName)}
+                    </div>
+                    <div style="display: flex; gap: 15px; margin: 15px 0;">
+                        ${artwork ? `<img src="${artwork}" class="song-album-art" alt="album art">` : '<div class="song-album-art" style="background:rgba(244,180,0,0.2); display:flex; align-items:center; justify-content:center;"><i class="fas fa-music" style="font-size:1.5rem;"></i></div>'}
+                        <div style="flex: 1;">
+                            <span style="background: rgba(76, 175, 80, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">
+                                <i class="fas fa-chord"></i> Guitar Chords Available
+                            </span>
+                        </div>
+                    </div>
+                    ${
+                      previewUrl
+                        ? `
+                    <div class="song-preview">
+                        <audio controls preload="none">
+                            <source src="${previewUrl}" type="audio/mpeg">
+                            Your browser does not support audio preview.
+                        </audio>
+                    </div>
+                    `
+                        : '<div class="song-preview" style="background: rgba(0,0,0,0.2); text-align:center; padding:8px;"><i class="fas fa-headphones"></i> No preview available</div>'
+                    }
+                    <div class="button-group">
+                        <a href="${chordSearchLink}" target="_blank" class="view-chords-btn">
+                            <i class="fas fa-guitar"></i> View Chords
+                        </a>
+                        <button class="save-song-btn ${isSaved ? "saved" : ""}" data-track-id="${trackId}" data-song-name="${escapeHtml(songName)}" data-artist="${escapeHtml(artistName)}" data-artwork="${artwork}" data-preview="${previewUrl}" data-itunes-url="${itunesUrl}" data-chord-link="${chordSearchLink}">
+                            <i class="fas ${isSaved ? "fa-check" : "fa-bookmark"}"></i>
+                            ${isSaved ? "Saved" : "Save Song"}
+                        </button>
+                    </div>
+                `;
+
+          songsGrid.appendChild(card);
+        });
+
+        // Add event listeners to save buttons
+        document
+          .querySelectorAll(".save-song-btn:not(.saved)")
+          .forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              const trackId = parseInt(this.dataset.trackId);
+              const songData = {
+                trackId: trackId,
+                trackName: this.dataset.songName,
+                artistName: this.dataset.artist,
+                artworkUrl: this.dataset.artwork,
+                previewUrl: this.dataset.preview,
+                itunesUrl: this.dataset.itunesUrl,
+                chordSearchLink: this.dataset.chordLink,
+              };
+
+              if (saveSongToLocalStorage(songData)) {
+                this.classList.add("saved");
+                this.innerHTML = '<i class="fas fa-check"></i> Saved';
+
+                const card = this.closest(".song-card");
+                if (!card.querySelector(".saved-badge")) {
+                  const badge = document.createElement("div");
+                  badge.className = "saved-badge";
+                  badge.innerHTML = '<i class="fas fa-check"></i> Saved';
+                  card.insertBefore(badge, card.firstChild);
+                }
+              }
+            });
+          });
+      }
+
+      window.searchExample = function (songName) {
+        songInput.value = songName;
+        searchSongs();
+      };
+
+      searchBtn.addEventListener("click", searchSongs);
+      songInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          searchSongs();
+        }
+      });
+
+      // No default search - search bar starts empty
+      // User must type something or click an example button
     </script>
   </body>
 </html>
