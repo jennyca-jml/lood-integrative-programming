@@ -284,15 +284,55 @@
   </head>
   <body>
     <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="profile.html">Profile</a></li>
-        <li><a href="admin.html" class="admin-link">Admin</a></li>
-        <li><a href="api.html" class="api-link">API</a></li>
-        <li><a href="saved-items.html" class="saved-link">Saved Items</a></li>
-        <li><a href="login.html" class="signup">Logout</a></li>
+      <ul class="nav-links" id="savedNav">
+        <!-- Navbar will be populated by JavaScript -->
       </ul>
     </nav>
+
+    <script>
+      function buildNavbar() {
+        const navLinks = document.getElementById("savedNav");
+        const userRole = localStorage.getItem("userRole");
+        const isLoggedIn = localStorage.getItem("profileName");
+
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        let links = `
+      <li><a href="index.html">Home</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    `;
+
+        if (userRole === "admin") {
+          links += `<li><a href="admin.html" class="admin-link">Admin</a></li>`;
+        }
+
+        links += `
+      <li><a href="api.html" class="api-link">API</a></li>
+      <li><a href="saved-items.html" class="saved-link">Saved Items</a></li>
+      <li><a href="login.html" class="signup">Logout</a></li>
+    `;
+
+        navLinks.innerHTML = links;
+
+        const logoutLink = document.querySelector(
+          '.nav-links a[href="login.html"].signup',
+        );
+        if (logoutLink) {
+          logoutLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("profileName");
+            localStorage.removeItem("profileEmail");
+            localStorage.removeItem("userRole");
+            window.location.href = "login.html";
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", buildNavbar);
+    </script>
 
     <div class="saved-container">
       <div class="saved-card">

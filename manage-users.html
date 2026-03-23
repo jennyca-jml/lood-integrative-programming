@@ -4,6 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Users - Guitaria</title>
+    <script>
+      (function () {
+        const userRole = localStorage.getItem("userRole");
+        const isLoggedIn = localStorage.getItem("profileName");
+
+        console.log("🔒 Manage Users access check:", { userRole, isLoggedIn });
+
+        if (!isLoggedIn) {
+          alert("Please log in first.");
+          window.location.replace("login.html");
+          return;
+        }
+
+        if (userRole !== "admin") {
+          alert("Access denied. Admin only.");
+          window.location.replace("profile.html");
+          return;
+        }
+
+        console.log("✅ Admin access granted for Manage Users");
+      })();
+    </script>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"

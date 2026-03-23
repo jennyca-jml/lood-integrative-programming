@@ -14,14 +14,11 @@
   <body>
     <!-- Navbar -->
     <nav class="navbar">
-      <ul class="nav-links">
-        <li>
-          <a href="profile.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Profile
-          </a>
-        </li>
+      <ul class="nav-links" id="settingsNav">
+        <!-- Navbar will be populated by JavaScript -->
       </ul>
     </nav>
+
     <!-- Settings Container -->
     <div class="settings-container">
       <div class="settings-card">
@@ -63,12 +60,55 @@
         </form>
       </div>
     </div>
+
     <script>
+      function buildNavbar() {
+        const navLinks = document.getElementById("settingsNav");
+        const userRole = localStorage.getItem("userRole");
+        const isLoggedIn = localStorage.getItem("profileName");
+
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        let links = `
+          <li><a href="index.html">Home</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        `;
+
+        if (userRole === "admin") {
+          links += `<li><a href="admin.html" class="admin-link">Admin</a></li>`;
+        }
+
+        links += `
+          <li><a href="api.html" class="api-link">API</a></li>
+          <li><a href="saved-items.html" class="saved-link">Saved Items</a></li>
+          <li><a href="login.html" class="signup">Logout</a></li>
+        `;
+
+        navLinks.innerHTML = links;
+
+        const logoutLink = document.querySelector(
+          '.nav-links a[href="login.html"].signup',
+        );
+        if (logoutLink) {
+          logoutLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("profileName");
+            localStorage.removeItem("profileEmail");
+            localStorage.removeItem("userRole");
+            window.location.href = "login.html";
+          });
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
+        buildNavbar();
+
         const saveBtn = document.querySelector(".save-btn");
         const themeSelect = document.getElementById("theme");
 
-        // Load saved theme preference
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) {
           themeSelect.value = savedTheme;
@@ -76,11 +116,8 @@
         }
 
         saveBtn.addEventListener("click", function () {
-          // Save theme preference
           const selectedTheme = themeSelect.value;
           localStorage.setItem("theme", selectedTheme);
-
-          // Show feedback
           alert("Settings saved!");
         });
       });

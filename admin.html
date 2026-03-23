@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - Guitaria</title>
-    <!-- EARLY ADMIN CHECK - Add this right after title -->
+    <!--ADMIN CHECK -->
     <script>
       (function () {
         // Immediate admin check before anything else
@@ -12,19 +12,29 @@
         const isLoggedIn = localStorage.getItem("profileName");
         const currentPage = window.location.pathname;
 
-        console.log("Early admin check:", { userRole, isLoggedIn });
+        console.log("🔒 Admin access check:", {
+          userRole,
+          isLoggedIn,
+          currentPage,
+        });
 
+        // Check if user is logged in
         if (!isLoggedIn) {
+          console.log("❌ No user logged in");
           alert("Please log in first.");
-          window.location.href = "login.html";
+          window.location.replace("login.html");
           return;
         }
 
+        // Check if user has admin role
         if (userRole !== "admin") {
+          console.log("❌ User is not admin. Role:", userRole);
           alert("Access denied. Admin only.");
-          window.location.href = "profile.html";
+          window.location.replace("profile.html");
           return;
         }
+
+        console.log("✅ Admin access granted");
       })();
     </script>
     <link rel="stylesheet" href="style.css" />
